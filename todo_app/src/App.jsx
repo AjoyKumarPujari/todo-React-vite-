@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import TodoList from './components/TodoList/TodoList'
 import AddTodo from './components/AddTodo/AddTodo'
-
+import TodoContext from './context/TodoContext';
 
 function App() {
  const [todos, setTodos] = useState([
@@ -10,19 +10,19 @@ function App() {
   {id: 3, text: 'todo 3', isFinished: false},
  ]);
 
- function addTodos(todoText){
-  let nextId = todos.length + 1;
-  setTodos([...todos, {id: nextId, isFinished: false, text:todoText}]);
- }
+//  function addTodos(todoText){
+//   let nextId = todos.length + 1;
+//   setTodos([...todos, {id: nextId, isFinished: false, text:todoText}]);
+//  }
 
- useEffect(() => {
-  console.log(todos);
- })
+
 
   return (
-    <>
-      <AddTodo addTodos={addTodos}/>
-      <TodoList todos={todos} setTodos={setTodos}/>
+    <> 
+    <TodoContext.Provider value={{todos, setTodos}}>
+      <AddTodo />
+      <TodoList />
+    </TodoContext.Provider>
     </>
   )
 }
